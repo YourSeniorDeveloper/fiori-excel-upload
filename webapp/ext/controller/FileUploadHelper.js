@@ -4,10 +4,13 @@ sap.ui.define([
     'use strict';
 
     return {
-        _callUploadDialog: function(action, orig) {
+        _callUploadDialog: function(orig, callback) {
             if(!this.oFileUploadDialog) {
                 this._createFileUploadDialog(orig, function (oFile, sFilename) {
-                        this._callAction(
+                    debugger;
+                    callback(sFilename, btoa(oFile.target.result))
+                    /*
+                    this._callAction(
                             action,
                             {
                                 "filename": sFilename,
@@ -18,7 +21,9 @@ sap.ui.define([
                             }.bind(this)
                         );
                     }.bind(this)
-                );
+                    */
+                
+                });
             }
             this.oFileUploadDialog.open();
         },
@@ -31,7 +36,7 @@ sap.ui.define([
             });
 
             this.oFileUploadDialog = new sap.m.Dialog({
-                title: "Realizar carga de " + orig,
+                title: orig,
                 content: [ 
                     new sap.ui.layout.form.SimpleForm("FileUploadForm", {
                         editable: true,
@@ -74,7 +79,7 @@ sap.ui.define([
                             );
                         };
                         
-                        fileReader.readAsBinaryString(file);
+                        fileReader.readAsArrayBuffer(file);
                     }.bind(this)
                 }),
                 endButton: new sap.m.Button({

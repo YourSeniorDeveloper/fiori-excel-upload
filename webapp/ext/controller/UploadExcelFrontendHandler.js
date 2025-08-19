@@ -7,7 +7,9 @@ sap.ui.define([
     return {
         UploadExcelFrontend: function(oEvent) {
             //MessageToast.show("Custom handler invoked.");
-            FileUploadHelper._callUploadDialog("/ImportarPlanilha", "Lista de Materiais");
+            FileUploadHelper._callUploadDialog("Titulo do Popup", function (sFilename, sFileBase64) {
+                console.log(sFilename);
+            });
         }
     };
 });
