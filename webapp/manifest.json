@@ -131,6 +131,18 @@
                     "type": "ResponsiveTable"
                   }
                 }
+              },
+              "content": {
+                "header": {
+                  "actions": {
+                    "uploadExcelFrontend": {
+                      "press": "br.com.rapexcelupload.fioriexcelupload.ext.controller.UploadExcelFrontendHandler.UploadExcelFrontend",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "Upload Excel"
+                    }
+                  }
+                }
               }
             }
           }
