@@ -7,8 +7,10 @@ sap.ui.define([
     return {
         UploadExcelFrontend: function(oEvent) {
             //MessageToast.show("Custom handler invoked.");
+
             FileUploadHelper._callUploadDialog("Titulo do Popup", function (sFilename, sFileBase64) {
                 console.log(sFilename);
+                
                 FileUploadHelper._callAction(
                     "/UploadExcel",
                     {
@@ -19,9 +21,8 @@ sap.ui.define([
                         this.templateBaseExtension.getExtensionAPI().refreshTable();
                     }.bind(this)
                 );
-            }.bind(this)
+            }.bind(this));            
 
-            });
         }
-    };
+    }
 });
