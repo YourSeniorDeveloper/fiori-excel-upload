@@ -9,20 +9,6 @@ sap.ui.define([
                 this._createFileUploadDialog(orig, function (oFile, sFilename) {
                     debugger;
                     callback(sFilename, btoa(oFile.target.result))
-                    /*
-                    this._callAction(
-                            action,
-                            {
-                                "filename": sFilename,
-                                "arquivo_base64": btoa(oFile.target.result)
-                            },
-                            function (data) {
-                                this.templateBaseExtension.getExtensionAPI().refreshTable();
-                            }.bind(this)
-                        );
-                    }.bind(this)
-                    */
-                
                 });
             }
             this.oFileUploadDialog.open();
