@@ -7,7 +7,6 @@ sap.ui.define([
         _callUploadDialog: function(orig, callback) {
             if(!this.oFileUploadDialog) {
                 this._createFileUploadDialog(orig, function (oFile, sFilename) {
-                    debugger;
                     callback(sFilename, btoa(oFile.target.result))
                 });
             }
@@ -80,11 +79,23 @@ sap.ui.define([
                 }.bind(this)
             });
         },
-        _callAction: function(action, oParameters, fnReturn) {
-            this.extensionAPI.securedExecution(
+        _callAction: function(extensionAPI, action, oParameters, fnReturn) {
+            debugger;
+            let oBindingContext = extensionAPI._view.getBindingContext;
+            let oContext = extensionAPI.getModel().bindContext("/ZC_CR82_T_EXCEL_UP");
+            let oAction = oBindingContext.getBoundContext().getBoundAction(action); // Get the bound action
+            oAction.execute(oParameters).then(function(oResult) {
+                // Handle success
+                debugger;
+            }).catch(function(oError) {
+                debugger;
+                // Handle error
+            });
+            /*        
+            extensionAPI.securedExecution(
                 function(){
                     return new Promise(function (resolve, reject) {
-                        this.extensionAPI.invokeActions(
+                        extensionAPI.invokeActions(
                             action,
                             [this.getView().getBindingContext()],
                             oParameters,
@@ -125,6 +136,7 @@ sap.ui.define([
                     console.log(error);
                 }
             );
+            */
         }
     };
 });
