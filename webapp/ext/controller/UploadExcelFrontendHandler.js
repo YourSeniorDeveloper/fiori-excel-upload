@@ -8,9 +8,10 @@ sap.ui.define([
         UploadExcelFrontend: function(oEvent) {
             //MessageToast.show("Custom handler invoked.");
             debugger;
-            //var oBindingContext = this.getView().getBindingContext();
-            //var oActionODataContextBinding = this.getModel().bindContext("/UploadExcel(...)", oBindingContext)
-            var oActionODataContextBinding = this.getModel().bindContext("com.sap.gateway.srvd.zui_cr82_excel_upload.v0001.UploadExcel(...)")
+            var oBindingContext = this._routing.getView().getBindingContext("ui")
+            var oActionODataContextBinding = this.getModel().bindContext("/UploadExcel(...)", oBindingContext)
+            //var oActionODataContextBinding = this.getModel().bindContext("UploadExcel(...)", oBindingContext)
+            //var oActionODataContextBinding = this.getModel().bindContext("com.sap.gateway.srvd.zui_cr82_excel_upload.v0001.UploadExcel(...)")
             //var oActionODataContextBinding = this.getModel().bindContext("/UploadExcel(...)")
             oActionODataContextBinding.execute().then(
                 function() {
