@@ -7,6 +7,18 @@ sap.ui.define([
     return {
         UploadExcelFrontend: function(oEvent) {
             //MessageToast.show("Custom handler invoked.");
+            debugger;
+            //var oBindingContext = this.getView().getBindingContext();
+            //var oActionODataContextBinding = this.getModel().bindContext("/UploadExcel(...)", oBindingContext)
+            var oActionODataContextBinding = this.getModel().bindContext("com.sap.gateway.srvd.zui_cr82_excel_upload.v0001.UploadExcel(...)")
+            //var oActionODataContextBinding = this.getModel().bindContext("/UploadExcel(...)")
+            oActionODataContextBinding.execute().then(
+                function() {
+                    var oActionContext = oActionODataContextBinding.getBoundContext();
+                    console.table(oActionContext.getObject().value);
+                }.bind(this)
+            );
+
 
             FileUploadHelper._callUploadDialog("Titulo do Popup", function (sFilename, sFileBase64) {
                 debugger;
