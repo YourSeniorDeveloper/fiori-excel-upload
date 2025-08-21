@@ -140,6 +140,12 @@
                       "visible": true,
                       "enabled": true,
                       "text": "Upload Excel"
+                    },
+                    "baixarPlanilhaModelo": {
+                      "press": "br.com.rapexcelupload.fioriexcelupload.ext.controller.UploadExcelFrontendHandler.baixarPlanilhaModelo",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "Baixar Planilha Modelo"
                     }
                   }
                 }

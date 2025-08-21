@@ -36,6 +36,9 @@ sap.ui.define([
 
             }.bind(this));            
 
+        },
+        baixarPlanilhaModelo: function() {
+            FileUploadHelper.baixarLayout();
         }
     }
 });
