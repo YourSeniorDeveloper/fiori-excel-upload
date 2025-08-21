@@ -1,10 +1,11 @@
 sap.ui.define([
-    "sap/m/MessageToast"
-], function(MessageToast) {
+    "sap/ui/export/Spreadsheet",
+    "sap/ui/export/library"
+], function(spreadsheet, library) {
     'use strict';
 
     return {
-        _callUploadDialog: function(orig, callback) {
+        callUploadDialog: function(orig, callback) {
             if(!this.oFileUploadDialog) {
                 this._createFileUploadDialog(orig, function (oFile, sFilename) {
                     callback(sFilename, btoa(oFile.target.result))
@@ -79,64 +80,57 @@ sap.ui.define([
                 }.bind(this)
             });
         },
-        _callAction: function(extensionAPI, action, oParameters, fnReturn) {
-            debugger;
-            let oBindingContext = extensionAPI._view.getBindingContext;
-            let oContext = extensionAPI.getModel().bindContext("/ZC_CR82_T_EXCEL_UP");
-            let oAction = oBindingContext.getBoundContext().getBoundAction(action); // Get the bound action
-            oAction.execute(oParameters).then(function(oResult) {
-                // Handle success
-                debugger;
-            }).catch(function(oError) {
-                debugger;
-                // Handle error
+        baixarLayout: function(oEvent) {
+            /* =================================================================== 
+            Monta layout de colunas
+            =================================================================== */
+            let aCols = [];
+
+            aCols.push({
+                label: 'Coluna1',
+                property: 'Coluna1',
+                type: library.EdmType.String
             });
-            /*        
-            extensionAPI.securedExecution(
-                function(){
-                    return new Promise(function (resolve, reject) {
-                        extensionAPI.invokeActions(
-                            action,
-                            [this.getView().getBindingContext()],
-                            oParameters,
-                            { 
-                                bInvocationGroupingChangeSet: false 
-                            }
-                        ).then(
-                            function (data) {
-                                if (fnReturn) {
-                                    fnReturn(data);
-                                }
-                                resolve(data);
-                            },
-                            function (error) {
-                                reject(error);
-                            }
-                        ).catch(function (error) {
-                            reject(error);
-                        });
-                    }.bind(this));            
-                }.bind(this), 
-                { 
-                    busy: {
-                        set: true,
-                        check: true
-                    },
-                    dataloss: {
-                        popup: true,
-                        navigation: false
-                    }
-                }
-            ).then(
-                function (data) {
-                    return;
-                },
-                function (error) {
-                    sap.m.MessageToast.show("Erro ao realizar a chamada do serviço " + action);
-                    console.log(error);
-                }
-            );
-            */
-        }
+            aCols.push({
+                label: 'Coluna2',
+                property: 'Coluna2',
+                type: library.EdmType.String
+            });
+            aCols.push({
+                label: 'Coluna3',
+                property: 'Coluna3',
+                type: library.EdmType.String
+            });
+
+            aCols.push({
+                label: 'Coluna4',
+                property: 'Coluna3',
+                type: library.EdmType.String
+            });
+
+            aCols.push({
+                label: 'Coluna5',
+                property: 'Coluna3',
+                type: library.EdmType.String
+            });
+            
+            /* =================================================================== 
+            Prepara configurações
+            =================================================================== */
+            let oSettings = {
+                workbook: { columns: aCols },
+                dataSource: [''],
+                count: 1,
+                fileName: 'PlanilhaModelo.xlsx'
+            };
+
+            /* =================================================================== 
+            Cria planilha 
+            =================================================================== */
+            let oSheet = new spreadsheet(oSettings);
+            oSheet.build().finally(function () {
+                oSheet.destroy();
+            })
+        }        
     };
 });

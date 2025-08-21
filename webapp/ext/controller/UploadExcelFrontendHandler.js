@@ -16,7 +16,7 @@ sap.ui.define([
             let ExtAPI = this._controller.getExtensionAPI();
             debugger;
             
-            FileUploadHelper._callUploadDialog("Titulo do Popup", function (sFilename, sFileBase64) {
+            FileUploadHelper.callUploadDialog("Titulo do Popup", function (sFilename, sFileBase64) {
                 debugger;
                 let oActionODataContextBinding = this.getModel().bindContext("/ZC_CR82_T_EXCEL_UP/com.sap.gateway.srvd.zui_cr82_excel_upload.v0001.UploadExcel(...)");
                 oActionODataContextBinding.setParameter("file_base64", sFileBase64 );
