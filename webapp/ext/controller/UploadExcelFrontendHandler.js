@@ -7,33 +7,33 @@ sap.ui.define([
     return {
         UploadExcelFrontend: function(oEvent) {
             //MessageToast.show("Custom handler invoked.");
+
+            // Pra lembrar como pegar o ID do Action
+            //ExtAPI.getModel().oMetaModel.mContexts["/ZC_CR82_T_EXCEL_UP/com.sap.gateway.srvd.zui_cr82_excel_upload.v0001.UploadExcel"]
+
+
+
+            let ExtAPI = this._controller.getExtensionAPI();
             debugger;
-            var oBindingContext = this._routing.getView().getBindingContext("ui")
-            var oActionODataContextBinding = this.getModel().bindContext("/UploadExcel(...)", oBindingContext)
-            //var oActionODataContextBinding = this.getModel().bindContext("UploadExcel(...)", oBindingContext)
-            //var oActionODataContextBinding = this.getModel().bindContext("com.sap.gateway.srvd.zui_cr82_excel_upload.v0001.UploadExcel(...)")
-            //var oActionODataContextBinding = this.getModel().bindContext("/UploadExcel(...)")
-            oActionODataContextBinding.execute().then(
-                function() {
-                    var oActionContext = oActionODataContextBinding.getBoundContext();
-                    console.table(oActionContext.getObject().value);
-                }.bind(this)
-            );
-
-
+            
             FileUploadHelper._callUploadDialog("Titulo do Popup", function (sFilename, sFileBase64) {
                 debugger;
-                FileUploadHelper._callAction(
-                    this._controller.extensionAPI,
-                    "/UploadExcel",
-                    {
-                        "file_name": sFilename,
-                        "file_base64": sFileBase64
-                    },
-                    function (data) {
-                        this.templateBaseExtension.getExtensionAPI().refreshTable();
+                let oActionODataContextBinding = this.getModel().bindContext("/ZC_CR82_T_EXCEL_UP/com.sap.gateway.srvd.zui_cr82_excel_upload.v0001.UploadExcel(...)");
+                oActionODataContextBinding.setParameter("file_base64", sFileBase64 );
+                oActionODataContextBinding.setParameter("file_name", sFilename );
+                oActionODataContextBinding.execute().then(
+                    function(result) {
+                        let oActionContext = oActionODataContextBinding.getBoundContext();
+                        oActionContext.oModel.mMessages[""].forEach(message => {
+                            MessageToast.show(message.message);
+                        });
+                    }.bind(this),
+                    function(oError){
+                        debugger;
                     }.bind(this)
                 );
+
+
             }.bind(this));            
 
         }
