@@ -22,11 +22,17 @@ sap.ui.define([
 		_inicializaDialog: function () {
 			var that = this;
 
+			//*********************************************/
+			// Descomente caso você deseje adicionar
+			// links na sua mensagem
+			//*********************************************/
+			/*
 			var	oLink = new Link({
 				text: "Show more information",
 				href: "http://sap.com",
 				target: "_blank"
 			});
+			*/
 
 			var oMessageTemplate = new MessageItem({
 				type: '{type}',
@@ -36,10 +42,10 @@ sap.ui.define([
 				subtitle: '{subtitle}',
 				counter: '{counter}',
 				markupDescription: '{markupDescription}',
-				link: oLink
+				// link: oLink
 			});
 
-			var aMockMessages = [{
+			let aMockMessages = [{
 				type: 'Error',
 				title: 'Error message',
 				description: 'First Error message description. \n' +
@@ -77,9 +83,9 @@ sap.ui.define([
 				counter: 1
 			}];
 
-			var oModel = new JSONModel();
+			this.oModelMessages = new JSONModel();
 
-			oModel.setData(aMockMessages);
+			this.oModelMessages.setData(aMockMessages);
 
 			this.oMessageView = new MessageView({
 				showDetailsPageHeader: false,
@@ -106,7 +112,7 @@ sap.ui.define([
 
 
 
-			this.oMessageView.setModel(oModel);
+			this.oMessageView.setModel(this.oModelMessages);
 
 			this.oDialog = new Dialog({
 				resizable: true,
@@ -132,13 +138,23 @@ sap.ui.define([
 				verticalScrolling: false
 			});
 		},
-
+		_abrirDialogo: function(aMessageList) {
+			let aMockMessages = [{
+				type: 'Error',
+				title: 'Titulo da mensagem',
+				description: 'Descrição Longa da mensagem',
+				subtitle: '',
+				counter: null
+			}];
+			this.oModelMessages.setData(aMockMessages);
+			this.oMessageView.navigateBack();
+			this.oDialog.open();
+		},
 		exibeMensagens: function (oEvent) {
             if (this.oDialog == undefined){
                 this._inicializaDialog();
             }
-			this.oMessageView.navigateBack();
-			this.oDialog.open();
+			this._abrirDialogo(null);
 		}
 	}
 });

@@ -1,7 +1,8 @@
 sap.ui.define([
     "sap/m/MessageToast",
-    "./FileUploadHelper"
-], function(MessageToast, FileUploadHelper) {
+    "./FileUploadHelper",
+    "./ShowMessagesHelper"
+], function(MessageToast, FileUploadHelper, ShowMessagesHelper) {
     'use strict';
 
     return {
@@ -38,7 +39,8 @@ sap.ui.define([
 
         },
         baixarPlanilhaModelo: function() {
-            FileUploadHelper.baixarLayout();
+            //FileUploadHelper.baixarLayout();
+            ShowMessagesHelper.exibeMensagens();
         }
     }
 });
